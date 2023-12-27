@@ -14,6 +14,7 @@ public class NewServer {
 		System.out.println("Server socket:"+serverSocket);
 		Socket srr=null;
 		try {
+			while(true) {
 			srr=serverSocket.accept();
 			System.out.println("A new client connected:"+srr);
 			DataInputStream dis=new DataInputStream(srr.getInputStream());
@@ -22,6 +23,7 @@ public class NewServer {
 			
 			Thread t=new MultiClientHandler(srr,dis,dos);
 			t.start();
+			}
 			
 		}
 		catch(Exception e) {
