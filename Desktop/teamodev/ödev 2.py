@@ -28,6 +28,7 @@ class HeadlightContolDecoder:
         
     def check_status(self):
         print(self.car.headlights_status)
+        
 class Connection:
     def __init__(self, conn_name, topic_name, buffer_size=1024):
         self.conn_name = conn_name
@@ -53,6 +54,7 @@ class Connection:
 def main():
     my_car=Car()
     decoder=HeadlightContolDecoder(my_car)
+    connection=Connection()
     print("Welcome to the Headlights Control System")
     
     while True:
@@ -61,18 +63,22 @@ def main():
         
         if choice=="1":
             decoder.turn_on()
+            connection.send(b'TurnOnHeadlights')
              
         elif choice=="2":
             decoder.turn_off()
+            connection.send(b'TurnOffHeadlights')
             
         elif choice=="3":
             decoder.check_status()
             
         elif choice=="4":
-            print("Exiting Headlight Contol System")
+            print("Exiting Headlight Contol System"),
+            connection.close()
             break
         else:
             print("Please enter a valid option")
+           
             
 if __name__ == "__main__":
     main()   
